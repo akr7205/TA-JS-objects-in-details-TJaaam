@@ -8,11 +8,9 @@
 
 - Create a `area` getter method using which we can get the area of the square.
 
-- Create a `area` setter method that will accept the area of the square. Based on the value of area it will set the value of `width` and `height`. If the passed value is not the area of the square alert say `Not a valid input`
+- Create a `area` setter method that will accept the area of the square. Based on the value of area it will set the value of `width` and `height`.
 
 - Create a static method named `isEqual` which accepts two `square` object with `width` and `height` property. If the area of both square is same it will return `true` or `false`.
-
-- Create another property named `numberOfTimes` that will hold the value of number of times the area property is accessed from the object. The values will initialize to `0`. The area property can't be accessed more than 4 times. If it crosses 4 times alert message `Upper Limit Reached`
 
 - Create two instance of the `Square` class
 

@@ -17,3 +17,45 @@
 // 9. Check by creating two instance of the class using data of two different persons and re-assign the value of `personOne` and `personTwo`
 
 // 10. Try calling `personOne.sayHello()` and `personTwo.sayHello()`. Check if you get the required output.
+
+// function CreateUser(name,age){
+//     let user=Object.create(CreateUser.prototype);
+//     user.name=name;
+//     user.age=age;
+//     return user;
+// }
+// CreateUser.prototype={
+//     sayHello:function(){
+//         console.log(this)
+//         alert(`welcome ${this.name}`)
+//     }
+// }
+// let personOne=CreateUser('arun',25);
+
+// - [ ] Using Pseudoclassical Way
+// function CreateUser(name,age){
+//     // console.log(this)
+//     this.name=name;
+//     this.age=age;
+// }
+// CreateUser.prototype={
+//     sayHello:function(){
+//         console.log(this)
+//         alert(`welcome ${this.name}`)
+//     }
+// }
+// let personOne=new CreateUser('arun',25);
+
+// - [ ] Using Class
+class CreateUser {
+    constructor(name, age) {
+        // console.log(this)
+        this.name = name;
+        this.age = age;
+    }
+    sayHello(){
+        console.log(this)
+        alert(`welcome ${this.name}`)
+    }
+}
+let personOne = new CreateUser('arun', 25);

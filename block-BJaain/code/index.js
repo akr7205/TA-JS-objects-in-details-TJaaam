@@ -1,15 +1,14 @@
-console.log(this.document === document); // Output
-
+console.log(this.document === document); // Output true
 // ------------
 
-console.log(this === window); //Output
+console.log(this === window); //Output true
 
 // ------------
 
 var myFunction = function () {
   console.log(this);
 };
-myFunction(); // Output
+myFunction(); //  window object
 
 // ------------
 
@@ -17,7 +16,7 @@ function f1() {
   'use strict';
   return this;
 }
-console.log(f1() === window); //Output
+console.log(f1() === window); //Output false
 
 // ------------
 
@@ -27,6 +26,8 @@ function foo() {
 }
 
 foo(); //Output ??
+// Simple function call
+//  true
 
 // ------------
 
@@ -34,7 +35,8 @@ foo(); //Output ??
 (function () {
   console.log('Anonymous function invocation');
   console.log(this === window);
-})(); //Output
+})(); //Output Anonymous function invocation
+//true
 
 // ------------
 
@@ -42,7 +44,7 @@ var myObject = {};
 myObject.someMethod = function () {
   console.log(this);
 };
-myObject.someMethod(); //Value Of This
+myObject.someMethod(); //Value Of  {someMethod: ƒ}
 
 // ------------
 
@@ -56,9 +58,9 @@ function Person(fn, ln) {
 }
 
 let person = new Person('John', 'Reed');
-person.displayName(); // Output
+person.displayName(); // Output john Reed
 let person2 = new Person('Paul', 'Adams');
-person2.displayName(); // Output
+person2.displayName(); // Output PAul Adams
 
 // ------------
 
@@ -76,10 +78,11 @@ let user = {
   },
 };
 
-user.foo(); // Output
+user.foo(); // Output Simple function call
+//false
 let fun1 = user.foo1;
-fun1(); // Output ??
-user.foo1(); // Output ??
+fun1(); // Output ?? true
+user.foo1(); // Output ?? false
 
 // ------------
 
@@ -91,13 +94,13 @@ var obj = {
   },
 };
 
-obj.getX(); // Output ??
+obj.getX(); // Output ?? 81
 
 var retrieveX = obj.getX;
-retrieveX(); //Output ??
+retrieveX(); //Output ?? 9
 
 var boundGetX = retrieveX.bind(obj);
-boundGetX(); // Output ??
+boundGetX(); // Output ?? 81
 
 // ------------
 
@@ -111,11 +114,11 @@ function Person(fn, ln) {
 }
 
 let person = new Person('John', 'Reed');
-person.displayName(); // Output
+person.displayName(); // Output John Reed 
 let person2 = new Person('Paul', 'Adams');
-person2.displayName(); // Output
+person2.displayName(); // Output Paul Adams
 
-person.displayName.call(person2); // Output ??
+person.displayName.call(person2); // Output ?? Paul Adams
 
 // ------------
 
@@ -133,21 +136,22 @@ obj.getThis4 = obj.getThis2.bind(obj);
 
 // Output
 obj.getThis();
-
+window
 // Output
 obj.getThis.call(a);
-
+window
 // Output
 obj.getThis2();
-
+{getThis: ƒ, getThis2: ƒ, getThis3: ƒ, getThis4: ƒ}
 // Output
 obj.getThis2.call(a);
-
+{a: 'a'}
 // Output
 obj.getThis3();
-
+window
 // Output
 obj.getThis4();
+{getThis: ƒ, getThis2: ƒ, getThis3: ƒ, getThis4: ƒ}
 
 // -------------
 
@@ -158,10 +162,10 @@ let person = {
   },
 };
 
-person.greet(); // output
+person.greet(); // output hello jay
 
 let greet = person.greet;
-greet(); // output
+greet(); // output hello
 
 // -------------
 
@@ -178,14 +182,14 @@ let person = {
     return this.name;
   },
 };
-console.log(person.details.print()); // output?
-console.log(person.print()); // output?
+console.log(person.details.print()); // output? Jay Details
+console.log(person.print()); // output?  Jay Person
 
 let name1 = person.print;
 let name2 = person.details;
 
-console.log(name1()); // output?
-console.log(name2.print()); // output?
+console.log(name1()); // output? undefined
+console.log(name2.print()); // output? Jay Details'
 
 // --------
 
@@ -194,12 +198,12 @@ let outerFn = function () {
   console.log(innerItem);
   let innerFn = function () {
     let innerItem = 'inner';
-    console.log(n);
+    console.log(n);//5
   };
   return innerFn;
 };
 
-outerFn()();
+outerFn()(); //error innerItem not defined
 
 // -----------
 
@@ -210,7 +214,7 @@ let object = {
     console.log('this inside of outerFn double()');
     console.log(this);
     return this.data.map(function (item) {
-      console.log(this); // Output ???
+      console.log(this); // Output ??? window 3times
       return item * 2;
     });
   },
@@ -218,7 +222,7 @@ let object = {
     console.log('this inside of outerFn doubleArrow()');
     console.log(this);
     return this.dataDouble.map((item) => {
-      console.log(this); // Output ???
+      console.log(this); // Output ??? will point object={}
       return item * 2;
     });
   },

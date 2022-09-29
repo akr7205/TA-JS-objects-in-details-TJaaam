@@ -80,8 +80,8 @@
         console.log(this)
       console.log(`I live in ${this.location} and I can eat`)  
     }
-    changeLocation(){
-     this.location=newLocation;
+    changeLocation(newLocation){
+    return this.location=newLocation;
     }
     summary(){
         return `I live in ${this.location} and I have ${this.numberofLegs} Legs`

@@ -52,7 +52,7 @@ var sandra = personFromPersonStore('Sandra', 26);
 /*** CHALLENGE 3 of 3 ***/
 
 // add code here
-personStore.__proto__.introduce=function(){
+personStore.introduce=function(){
 console.log(`Hi, my name is ${this.name}`)
 }
 
@@ -141,8 +141,8 @@ class DeveloperClass extends PersonClass{
 ****************************************************************/
 
 var userFunctionStore = {
-  sayType: function (type) {
-    console.log(`i am a ${type}`);
+  sayType: function () {
+    console.log(`i am a ${this.type}`);
   },
 };
 
@@ -154,24 +154,23 @@ function userFactory(name, score) {
   return user;
 }
 
-var adminFunctionStore={
-  adminSayType:userFunctionStore.sayType,
-};
+var adminFunctionStore=Object.create(userFunctionStore)
 
 function adminFactory(name, score) {
-  this.name=name;
-  this.score=score;
-  this.sharePublicMessage=function(){
-    console.log('Welocme Users')
-  }
+  let obj=userFactory(name,score);
+  Object.setPrototypeOf(obj,adminFunctionStore);
+  obj.type='Admin';
+  return obj;
+  
 }
 
 /* Put code here for a method called sharePublicMessage*/
-
-var adminFromFactory = new adminFactory('Eva', 5);
-Object.setPrototypeOf(adminFromFactory,userFunctionStore);
+adminFunctionStore.sharePublicMessage=function(){
+  console.log('Welcome User')
+}
+var adminFromFactory =  adminFactory('Eva', 5);
 
 
 // /********* Uncomment these lines to test your work! *********/
-adminFromFactory.sayType('Admin') // -> Logs "I am a Admin"
+adminFromFactory.sayType() // -> Logs "I am a Admin"
 adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"

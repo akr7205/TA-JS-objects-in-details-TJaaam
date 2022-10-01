@@ -11,6 +11,13 @@ let numbers = [1, 5, 6, 8, 9];
 let words = 'quick brown fox jumped over a lazy dog'.split(
   ' '
 );
+Array.prototype.myMap=function(cb){
+  const resultArr=[];
+  for(let i=0;i<this.length;i++){
+    resultArr.push(cb(this[i]))
+  }
+  return resultArr;
+}
 let doubleNum = numbers.myMap(function (num) {
   return num * 2 - 1;
 });
@@ -29,7 +36,15 @@ After adding the function test it using the code below.
 */
 
 // You code goes here
-
+Array.prototype.myFilter=function(cb){
+  let result=[];
+  for(let i=0;i<this.length;i++){
+    if(cb(this[i])){
+      result.push(this[i])
+    }
+  }
+  return result;
+}
 let even = numbers.myFilter(function (num) {
   return num % 2 === 0;
 });
@@ -50,7 +65,23 @@ Make sure it does not the changes the original array.
 */
 
 // You code goes here
+Array.prototype.shuffle=function(){
+  var m = this.length, temp, index;
+   let copy=[...this];
+  // While there remain elements to shuffle…
+  while (m) {
 
+    // Pick a remaining element…
+    index = Math.floor(Math.random() * m--);
+    
+    // And swap it with the current element.
+    temp = copy[m];
+    copy[m] = copy[index];
+    copy[index] = temp;
+  }
+
+  return copy;
+}
 // Test to check the shuffle method (It will return different output every time you call)
 console.log(numbers.shuffle());
 console.log(numbers.shuffle());
